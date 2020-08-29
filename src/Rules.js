@@ -72,8 +72,24 @@ class FullHouse extends Rule {
 
 /** Check for small straights. */
 
-class SmallStraight {
+class SmallStraight extends Rule{ 
   // TODO
+  // should extend rule and evaluate the dice
+  evalRoll = dice => {
+    // needs to check the frequency (1. evaulate the dice, check to see if there's at least 4 ones)
+    // create a new set from dice (makes it easier to see if a given value is present)
+    const d = new Set(dice); 
+
+    // a small straight can have 1234 or 2345; so check set for these
+    if (d.has(2) && d.has(3) && d.has(4) && d.has(1) || d.has(5))
+      return this.score;
+
+    // a small straight can also have 2345 or 3456
+    if (d.has(3) && d.has(4) && d.has(5) && d.has(2) || d.has(6))
+      return this.score;
+
+    return 0;
+  }
 }
 
 /** Check for large straights. */
@@ -112,7 +128,7 @@ const fourOfKind = new SumDistro({ count: 4 });
 const fullHouse = new FullHouse({score: 25});
 
 // small/large straights score as 30/40
-const smallStraight = "TODO";
+const smallStraight = new SmallStraight({ score: 30 });
 const largeStraight = new LargeStraight({ score: 40 });
 
 // yahtzee scores as 50
