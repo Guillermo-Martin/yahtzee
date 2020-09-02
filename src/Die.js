@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./Die.css";
 
+const dieNums = ["one", "two", "three", "four", "five", "six"];
+
 class Die extends Component {
   // create a handleClick function for this component
   // pass in the index of the particular die (so you know which die to lock)
@@ -9,14 +11,18 @@ class Die extends Component {
   }
 
   render() {
+    // font awesome die icon with numbers that change dynamically
+    let num = `fas fa-dice-${dieNums[this.props.val - 1]}`;
     return (
-      <button
+      <i
         className={"Die"}
         style={{ backgroundColor: this.props.locked ? "grey" : "black" }}
         onClick={this.handleClick}
       >
-        {this.props.val}
-      </button>
+       
+        
+        <i className={num} ></i>
+      </i>
     );
   }
 }
